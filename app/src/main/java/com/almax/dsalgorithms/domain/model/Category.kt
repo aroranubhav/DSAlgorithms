@@ -10,3 +10,20 @@ data class Category(
     val url: String = "",
     val type: String = DIR_TYPE
 )
+
+fun Category.toCategoryDto(
+    problemName: String, problemLcLink: String, problemLcNumber: Int, problemLcLevel: String,
+    askedInCompanies: List<String>
+): CategoryDto {
+    val problemProperty = ProblemProperties(
+        problemName,
+        problemLcLink,
+        problemLcNumber,
+        problemLcLevel,
+        askedInCompanies
+    )
+    return CategoryDto(
+        this,
+        problemProperty
+    )
+}
