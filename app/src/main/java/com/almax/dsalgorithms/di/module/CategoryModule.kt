@@ -3,7 +3,7 @@ package com.almax.dsalgorithms.di.module
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.almax.dsalgorithms.data.remote.NetworkService
+import com.almax.dsalgorithms.data.remote.FoldersNetworkService
 import com.almax.dsalgorithms.data.repository.CategoryRepositoryImpl
 import com.almax.dsalgorithms.di.ActivityContext
 import com.almax.dsalgorithms.di.ActivityScope
@@ -29,7 +29,7 @@ class CategoryModule(
     @Provides
     @ActivityScope
     fun provideCategoryRepository(
-        networkService: NetworkService
+        networkService: FoldersNetworkService
     ): CategoryRepository =
         CategoryRepositoryImpl(networkService)
 
