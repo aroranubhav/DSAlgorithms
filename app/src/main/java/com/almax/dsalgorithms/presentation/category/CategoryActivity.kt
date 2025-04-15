@@ -1,5 +1,6 @@
 package com.almax.dsalgorithms.presentation.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,8 @@ import com.almax.dsalgorithms.di.component.CategoryComponent
 import com.almax.dsalgorithms.di.component.DaggerCategoryComponent
 import com.almax.dsalgorithms.di.module.CategoryModule
 import com.almax.dsalgorithms.presentation.base.UiState
+import com.almax.dsalgorithms.presentation.problem.ProblemActivity
+import com.almax.dsalgorithms.util.AppConstants.ALGORITHM_CATEGORY
 import com.almax.dsalgorithms.util.updateVisibility
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -52,6 +55,14 @@ class CategoryActivity : AppCompatActivity() {
                 )
             )
         }
+        adapter.categoryItemClickListener = { category ->
+            Log.d(TAG, "setupUi: Algorithm Category: $category")
+            val intent = Intent(this@CategoryActivity, ProblemActivity::class.java).apply {
+                putExtra(ALGORITHM_CATEGORY, category)
+            }
+            startActivity(intent)
+        }
+
         binding.svCategory.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -95,7 +106,6 @@ class CategoryActivity : AppCompatActivity() {
                             binding.pbCategory.updateVisibility(true)
                         }
                     }
-
                 }
             }
         }

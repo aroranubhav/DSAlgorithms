@@ -7,12 +7,15 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.almax.dsalgorithms.databinding.RowItemBinding
 import com.almax.dsalgorithms.domain.model.Category
+import com.almax.dsalgorithms.util.CategoryItemClickListener
 
 class CategoryAdapter(
     private val items: ArrayList<Category>
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(), Filterable {
 
     private var filteredList = arrayListOf<Category>()
+
+    lateinit var categoryItemClickListener: CategoryItemClickListener<String>
 
     inner class CategoryViewHolder(
         private val binding: RowItemBinding
@@ -21,6 +24,12 @@ class CategoryAdapter(
         fun onBind(item: Category) {
             binding.apply {
                 btnItem.text = item.name
+            }
+            binding.btnItem.apply {
+                text = item.name
+                setOnClickListener {
+                    categoryItemClickListener(item.name)
+                }
             }
         }
     }
