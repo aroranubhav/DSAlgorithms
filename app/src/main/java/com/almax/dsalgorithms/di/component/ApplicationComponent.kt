@@ -1,7 +1,8 @@
 package com.almax.dsalgorithms.di.component
 
 import com.almax.dsalgorithms.MainApplication
-import com.almax.dsalgorithms.data.remote.NetworkService
+import com.almax.dsalgorithms.data.remote.FilesNetworkService
+import com.almax.dsalgorithms.data.remote.FoldersNetworkService
 import com.almax.dsalgorithms.di.module.ApplicationModule
 import com.almax.dsalgorithms.util.DispatcherProvider
 import dagger.Component
@@ -15,7 +16,9 @@ interface ApplicationComponent {
 
     fun inject(application: MainApplication)
 
-    fun getNetworkService(): NetworkService
+    fun getFoldersNetworkService(): FoldersNetworkService
+
+    fun getFilesNetworkService(): FilesNetworkService
 
     fun getDispatcherProvider(): DispatcherProvider
 }
