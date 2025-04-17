@@ -2,4 +2,7 @@
     <string name="app_name">DSAlgorithms</string>
     <string name="search_algorithm_categories">Search Algorithm Categories</string>
     <string name="refresh_list">Refresh List</string>
+    <string name="problem_level">Problem Level</string>
+    <string name="solutions">Solutions</string>
+    <string name="in_progress">In Progress</string>
 </resources>
