@@ -1,6 +1,5 @@
 package com.almax.dsalgorithms.presentation.problem
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -10,11 +9,17 @@ import com.almax.dsalgorithms.databinding.RowQuestionBinding
 import com.almax.dsalgorithms.domain.model.CategoryDto
 import com.almax.dsalgorithms.util.AppConstants.EASY
 import com.almax.dsalgorithms.util.AppConstants.HARD
+import com.almax.dsalgorithms.util.AppConstants.KOTLIN_FILE_TYPE
 import com.almax.dsalgorithms.util.AppConstants.MEDIUM
+import com.almax.dsalgorithms.util.AppConstants.PYTHON_FILE_TYPE
+import com.almax.dsalgorithms.util.AppConstants.SOLUTIONS_FILES_BASE_URL
+import com.almax.dsalgorithms.util.SolutionClickListener
 
 class ProblemAdapter(
     private val questions: ArrayList<CategoryDto>
 ) : RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>() {
+
+    lateinit var solutionClickListener: SolutionClickListener<String>
 
     inner class ProblemViewHolder(
         private val binding: RowQuestionBinding
@@ -24,10 +29,29 @@ class ProblemAdapter(
             binding.apply {
                 question.apply {
                     val questionText = "${properties.problemLcNumber}. ${category.name}"
-                    Log.d(TAG, "onBind: $questionText")
                     txtQuestion.text = questionText
                     txtLink.text = properties.problemLcLink
                     setProblemLevelColor(properties.problemLcLevel)
+
+                    ivKotlin.setOnClickListener {
+                        solutionClickListener(
+                            getFileUrl(
+                                category.path,
+                                category.name,
+                                KOTLIN_FILE_TYPE
+                            )
+                        )
+                    }
+
+                    ivPython.setOnClickListener {
+                        solutionClickListener(
+                            getFileUrl(
+                                category.path,
+                                category.name,
+                                PYTHON_FILE_TYPE
+                            )
+                        )
+                    }
                 }
             }
         }
@@ -64,6 +88,11 @@ class ProblemAdapter(
                 }
             }
         }
+
+        private fun getFileUrl(filePath: String, fileName: String, type: String): String {
+            val fileUrl = "$SOLUTIONS_FILES_BASE_URL$filePath/$fileName$type"
+            return fileUrl
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProblemViewHolder =
@@ -89,5 +118,3 @@ class ProblemAdapter(
         notifyDataSetChanged()
     }
 }
-
-const val TAG = "ProblemAdapterTAG"
