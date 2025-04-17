@@ -49,6 +49,7 @@
             android:maxLines="3"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:autoLink="web"
             android:textStyle="italic"
             tools:text="Link to the Problem" />
 
