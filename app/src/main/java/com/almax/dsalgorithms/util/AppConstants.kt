@@ -9,4 +9,7 @@ object AppConstants {
     const val MEDIUM = "Medium"
     const val HARD = "Hard"
     const val UNKNOWN = "Unknown"
+    const val KOTLIN_FILE_TYPE = ".kt"
+    const val PYTHON_FILE_TYPE = ".py"
+    const val SOLUTIONS_FILES_BASE_URL = "https://raw.githubusercontent.com/aroranubhav/Data-Structures-and-Algorithms/main/"
 }
