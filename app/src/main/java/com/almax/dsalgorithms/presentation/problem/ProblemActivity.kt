@@ -1,9 +1,11 @@
 package com.almax.dsalgorithms.presentation.problem
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -61,6 +63,9 @@ class ProblemActivity : AppCompatActivity() {
         binding.fabProblem.setOnClickListener {
             viewModel.getProblems(category)
         }
+        adapter.solutionClickListener = { url ->
+            viewSolution(url)
+        }
         observeDataAndUpdateUi()
     }
 
@@ -94,6 +99,12 @@ class ProblemActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+
+    private fun viewSolution(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder().build()
+        customTabsIntent.launchUrl(this@ProblemActivity, Uri.parse(url))
     }
 
     private fun updateViewsVisibility() {
