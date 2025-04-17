@@ -5,4 +5,6 @@
     <string name="problem_level">Problem Level</string>
     <string name="solutions">Solutions</string>
     <string name="in_progress">In Progress</string>
+    <string name="kotlin_solution_icon">Kotlin Solution Icon</string>
+    <string name="python_solution_icon">Python Solution Icon</string>
 </resources>
