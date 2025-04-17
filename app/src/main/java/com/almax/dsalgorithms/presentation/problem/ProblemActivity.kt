@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -66,6 +68,16 @@ class ProblemActivity : AppCompatActivity() {
         adapter.solutionClickListener = { url ->
             viewSolution(url)
         }
+        binding.svProblem.setOnQueryTextListener(object: OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return true
+            }
+        })
         observeDataAndUpdateUi()
     }
 
@@ -76,7 +88,7 @@ class ProblemActivity : AppCompatActivity() {
                     when (state) {
                         is UiState.Success -> {
                             if (state.data.isNotEmpty()) {
-                                adapter.setData(state.data)
+                                adapter.setData(state.data as ArrayList)
                             } else {
                                 updateViewsVisibility()
                             }

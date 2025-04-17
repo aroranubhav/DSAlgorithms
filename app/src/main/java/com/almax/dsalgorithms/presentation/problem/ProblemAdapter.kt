@@ -2,6 +2,8 @@ package com.almax.dsalgorithms.presentation.problem
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +19,9 @@ import com.almax.dsalgorithms.util.SolutionClickListener
 
 class ProblemAdapter(
     private val questions: ArrayList<CategoryDto>
-) : RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>() {
+) : RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder>(), Filterable {
+
+    private var questionsFilteredList = arrayListOf<CategoryDto>()
 
     lateinit var solutionClickListener: SolutionClickListener<String>
 
@@ -104,14 +108,45 @@ class ProblemAdapter(
         )
 
     override fun getItemCount(): Int =
-        questions.size
+        questionsFilteredList.size
 
     override fun onBindViewHolder(holder: ProblemViewHolder, position: Int) {
-        holder.onBind(questions[position])
+        holder.onBind(questionsFilteredList[position])
     }
 
-    fun setData(questions: List<CategoryDto>) {
+    private val searchFilter: Filter = object : Filter() {
+        override fun performFiltering(input: CharSequence?): FilterResults {
+            val filteredList = input?.let {
+                if (input.isEmpty()) {
+                    questions
+                } else {
+                    questions.filter { it.properties.problemName.lowercase().contains(input) }
+                }
+            } ?: questions
+            return FilterResults().apply { values = filteredList }
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            results?.let {
+                updateSearchList(results.values as ArrayList<CategoryDto>)
+            }
+        }
+    }
+
+    override fun getFilter(): Filter =
+        searchFilter
+
+    fun setData(questions: ArrayList<CategoryDto>) {
         this.questions.apply {
+            clear()
+            addAll(questions)
+            questionsFilteredList = questions
+        }
+        notifyDataSetChanged()
+    }
+
+    private fun updateSearchList(questions: List<CategoryDto>) {
+        questionsFilteredList.apply {
             clear()
             addAll(questions)
         }
