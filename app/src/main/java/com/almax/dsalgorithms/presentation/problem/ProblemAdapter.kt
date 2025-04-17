@@ -1,5 +1,6 @@
 package com.almax.dsalgorithms.presentation.problem
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -23,12 +24,10 @@ class ProblemAdapter(
             binding.apply {
                 question.apply {
                     val questionText = "${properties.problemLcNumber}. ${category.name}"
+                    Log.d(TAG, "onBind: $questionText")
                     txtQuestion.text = questionText
                     txtLink.text = properties.problemLcLink
                     setProblemLevelColor(properties.problemLcLevel)
-                }
-                txtQuestion.apply {
-                    text = question.category.name
                 }
             }
         }
@@ -90,3 +89,5 @@ class ProblemAdapter(
         notifyDataSetChanged()
     }
 }
+
+const val TAG = "ProblemAdapterTAG"

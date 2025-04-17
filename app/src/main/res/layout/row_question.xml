@@ -29,9 +29,12 @@
                 android:id="@+id/txtQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_marginVertical="12dp"
+                android:layout_marginEnd="12dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:textStyle="italic"
                 tools:text="Question" />
 
@@ -44,6 +47,8 @@
             android:layout_margin="12dp"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:textStyle="italic"
             tools:text="Link to the Problem" />
 
