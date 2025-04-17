@@ -101,7 +101,6 @@ class ProblemActivity : AppCompatActivity() {
         }
     }
 
-
     private fun viewSolution(url: String) {
         val customTabsIntent = CustomTabsIntent.Builder().build()
         customTabsIntent.launchUrl(this@ProblemActivity, Uri.parse(url))
